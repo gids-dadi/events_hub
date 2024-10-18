@@ -1,10 +1,4 @@
 import LoginForm from "@/components/shared/Form/LoginForm";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-
-// import LoginForm from "@/components/Form/LoginForm";
-// import AuthLayout from "@/components/layouts/auth-layout";
 
 export default function LoginPage() {
   return (
