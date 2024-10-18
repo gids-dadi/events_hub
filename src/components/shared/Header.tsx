@@ -1,11 +1,19 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
+import { getUserProfile } from "@/api/user";
+import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
+  // Fetching the current user
+  const { data: user } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getUserProfile, // getUserProfile is a function that fetches the user profile
+  });
+
   return (
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between">
@@ -18,22 +26,18 @@ const Header = () => {
           />
         </Link>
 
-        <SignedIn>
-          <nav className="md:flex-between hidden w-full max-w-xs">
-            <NavItems />
-          </nav>
-        </SignedIn>
+        <nav className="md:flex-between hidden w-full max-w-xs">
+          <NavItems />
+        </nav>
 
         <div className="flex w-32 justify-end gap-3">
-          <SignedIn>
-            <UserButton />
-            <MobileNav />
-          </SignedIn>
-          <SignedOut>
-            <Button asChild className="rounded-full" size="lg">
-              <Link href="/sign-in">Login</Link>
+          <MobileNav />
+
+          {!user && (
+            <Button asChild className="rounded-full bg-[#347bf3]" size="lg">
+              <Link href="/login">Login</Link>
             </Button>
-          </SignedOut>
+          )}
         </div>
       </div>
     </header>

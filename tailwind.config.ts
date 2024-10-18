@@ -10,6 +10,12 @@ module.exports = withUt({
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
+    screens: {
+      sm: "576px",
+      md: "960px",
+      lg: "1440px",
+      xl: "1920px",
+    },
     container: {
       center: true,
       padding: "2rem",
