@@ -12,7 +12,6 @@ export default function EventDetailsPage({ params: { id } }: SearchParamProps) {
     queryFn: () => getEventById(id),
   });
 
-
   const event = data?.data;
 
   if (isPending) return <p>Loading...</p>;
@@ -56,10 +55,6 @@ export default function EventDetailsPage({ params: { id } }: SearchParamProps) {
 
             <CheckoutButton event={event} />
 
-
-
-
-
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
                 <Image
@@ -102,7 +97,7 @@ export default function EventDetailsPage({ params: { id } }: SearchParamProps) {
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
+              <p className="p-bold-20 text-grey-600">What You&apos;ll Learn:</p>
               <p className="p-medium-16 lg:p-regular-18">
                 {event?.event?.description}
               </p>

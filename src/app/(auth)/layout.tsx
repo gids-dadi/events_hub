@@ -19,8 +19,8 @@ export default function RootLayout({
             </h2>
             <p className="p-regular-18 w-2/3">
               We are a platform that allows you to publish your event to the
-              world and reach a wider audience. If you haven't already, sign up
-              now and start publishing your events.
+              world and reach a wider audience. If you haven&apos;t already,
+              sign up now and start publishing your events.
             </p>
 
             <div className="bg-[#2465ec] self-center w-fit py-6 px-10 rounded-full mt-8 text-white flex gap-2 decoration-none">
