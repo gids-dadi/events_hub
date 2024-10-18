@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export default function RegistrationPage() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // const eventName = searchParams.get("eventName");
 
   return (
