@@ -7,7 +7,7 @@ import { SearchParamProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 // import CategoryFilter from "@/components/shared/CategoryFilter";
 // import Search from "@/components/shared/Search";
 
@@ -26,23 +26,23 @@ export default async function Home({ searchParams }: SearchParamProps) {
   // const searchText = searchParams.get("query") || "";
   // const category = searchParams.get("category") || "";
 
-  // const events = await getAllEvents({
-  //   query: "",
-  //   category: "",
-  //   page,
-  //   limit: 6,
-  // });
+  const allEventsQuery = await getAllEvents({
+    query: searchText,
+    category,
+    page,
+    limit: 6,
+  });
 
   // const allEventsQuery = useQuery({
   //   queryKey: ["events", { query: searchText, category, page }],
   //   queryFn: () => getAllEvents({ query: "", category: "", page, limit: 6 }),
   // });
 
-  const allEventsQuery = useQuery({
-    queryKey: ["events", { query: searchText, category, page }],
-    queryFn: () =>
-      getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
-  });
+  // const allEventsQuery = useQuery({
+  //   queryKey: ["events", { query: searchText, category, page }],
+  //   queryFn: () =>
+  //     getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
+  // });
 
   console.log(allEventsQuery?.data?.data, "from home page");
 
