@@ -7,24 +7,10 @@ import { Button } from "../ui/button";
 import { IEvent } from "@/types";
 
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
-  // useEffect(() => {
-  //   // Check to see if this is a redirect back from Checkout
-  //   const query = new URLSearchParams(window.location.search);
-  //   if (query.get("success")) {
-  //     console.log("Order placed! You will receive an email confirmation.");
-  //   }
-
-  //   if (query.get("canceled")) {
-  //     console.log(
-  //       "Order canceled -- continue to shop around and checkout when you’re ready."
-  //     );
-  //   }
-  // }, []);
-
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLISHABLE_KEY as string;
   const amount = Number(event.event.price) * 100;
   const email = event.organizer.email;
-  const currency = "USD";
+  const currency = "NGN";
 
   console.log({ email, amount, currency, publicKey });
   const componentProps = {
@@ -55,22 +41,26 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
     },
   };
 
-  const onCheckout = async () => {
-    const order = {
-      eventTitle: event.event.title,
-      eventId: event._id,
-      price: event.event.price,
-      isFree: event.event.isFree,
-      buyerId: userId,
-    };
+  // const onCheckout = async () => {
+  //   const order = {
+  //     eventTitle: event.event.title,
+  //     eventId: event._id,
+  //     price: event.event.price,
+  //     isFree: event.event.isFree,
+  //     buyerId: userId,
+  //   };
 
-    // await checkoutOrder(order);
-  };
+  // await checkoutOrder(order);
+  // };
 
   return (
-    <form action={onCheckout} method="post">
-      <PaystackButton {...componentProps} />
-    </form>
+    // action={onCheckout}  method="post"
+    <div className="bg-primary-50">
+      <PaystackButton
+        {...componentProps}
+        className="bg-primary p-4 rounded-md text-white"
+      />
+    </div>
   );
 };
 

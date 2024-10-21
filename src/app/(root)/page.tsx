@@ -1,6 +1,4 @@
 "use client";
-// import CategoryFilter from "@/components/shared/CategoryFilter";
-// import Search from "@/components/shared/Search";
 import { getAllEvents } from "@/api/events";
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
@@ -9,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+// import CategoryFilter from "@/components/shared/CategoryFilter";
+// import Search from "@/components/shared/Search";
 
 // { searchParams }: SearchParamProps
 

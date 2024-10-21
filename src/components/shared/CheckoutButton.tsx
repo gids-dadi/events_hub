@@ -20,9 +20,9 @@ export default function CheckoutButton({ event }: { event: IEvent }) {
 
   return (
     <div className="flex items-center gap-3">
-      {/* we can not buy a finished event */}
+      {/* Check if the event is finished, we can not buy a finished event */}
       {hasEventFinished ? (
-        <p className="p-2 text-red-500 ">
+        <p className="p-2 text-red-500 text-lg  ">
           Sorry, tickets are no longer available.
         </p>
       ) : (
@@ -30,7 +30,7 @@ export default function CheckoutButton({ event }: { event: IEvent }) {
           {!profile.data ? (
             <Link
               href="/login"
-              className="p-medium-16 rounded-full bg-grey-500/10 px-4 py-2.5 text-grey-500 hover:bg-opacity-10"
+              className="p-medium-16 rounded-full bg-grey-500/10 px-4 py-2.5 text-grey-500 hover:bg-opacity-10 bg-primary-500 p-2 "
             >
               Get Tickets
             </Link>
