@@ -1,4 +1,5 @@
 "use client";
+
 import { getAllEvents } from "@/api/events";
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
@@ -12,12 +13,18 @@ import { useSearchParams } from "next/navigation";
 
 // { searchParams }: SearchParamProps
 
-export default function Home() {
-  const searchParams = useSearchParams();
+// export default function Home() {
 
-  const page = Number(searchParams.get("page")) || 1;
-  const searchText = searchParams.get("query") || "";
-  const category = searchParams.get("category") || "";
+export default async function Home({ searchParams }: SearchParamProps) {
+  // const searchParams = useSearchParams();
+
+  const page = Number(searchParams.page) || 1;
+  const searchText = (searchParams.query as string) || ""; // Pass the correct values
+  const category = (searchParams.category as string) || ""; // Pass the correct values
+
+  // const page = Number(searchParams.get("page")) || 1;
+  // const searchText = searchParams.get("query") || "";
+  // const category = searchParams.get("category") || "";
 
   // const events = await getAllEvents({
   //   query: "",
@@ -26,9 +33,15 @@ export default function Home() {
   //   limit: 6,
   // });
 
+  // const allEventsQuery = useQuery({
+  //   queryKey: ["events", { query: searchText, category, page }],
+  //   queryFn: () => getAllEvents({ query: "", category: "", page, limit: 6 }),
+  // });
+
   const allEventsQuery = useQuery({
     queryKey: ["events", { query: searchText, category, page }],
-    queryFn: () => getAllEvents({ query: "", category: "", page, limit: 6 }),
+    queryFn: () =>
+      getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
   });
 
   console.log(allEventsQuery?.data?.data, "from home page");
