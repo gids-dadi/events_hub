@@ -1,5 +1,4 @@
 "use client";
-
 import { getAllEvents } from "@/api/events";
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
@@ -11,40 +10,34 @@ import Link from "next/link";
 // import CategoryFilter from "@/components/shared/CategoryFilter";
 // import Search from "@/components/shared/Search";
 
-// { searchParams }: SearchParamProps
-
-// export default function Home() {
-
-export default async function Home({ searchParams }: SearchParamProps) {
-  // const searchParams = useSearchParams();
-
+export default function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams.page) || 1;
-  const searchText = (searchParams.query as string) || ""; // Pass the correct values
-  const category = (searchParams.category as string) || ""; // Pass the correct values
+  const searchText = (searchParams.query as string) || "";
+  const category = (searchParams.category as string) || "";
 
   // const page = Number(searchParams.get("page")) || 1;
   // const searchText = searchParams.get("query") || "";
   // const category = searchParams.get("category") || "";
 
-  const allEventsQuery = await getAllEvents({
-    query: searchText,
-    category,
-    page,
-    limit: 6,
-  });
+  // const allEventsQuery = await getAllEvents({
+  //   query: searchText,
+  //   category,
+  //   page,
+  //   limit: 6,
+  // });
 
   // const allEventsQuery = useQuery({
   //   queryKey: ["events", { query: searchText, category, page }],
   //   queryFn: () => getAllEvents({ query: "", category: "", page, limit: 6 }),
   // });
 
-  // const allEventsQuery = useQuery({
-  //   queryKey: ["events", { query: searchText, category, page }],
-  //   queryFn: () =>
-  //     getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
-  // });
+  const allEventsQuery = useQuery({
+    queryKey: ["events", { query: searchText, category, page }],
+    queryFn: () =>
+      getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
+  });
 
-  console.log(allEventsQuery?.data?.data, "from home page");
+  console.log(allEventsQuery?.data, "from home page");
 
   return (
     <div>
