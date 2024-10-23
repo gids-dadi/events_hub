@@ -14,6 +14,8 @@ Host, Connect, Celebrate: Expand Your Events to the Wildest Reach on Our Platfor
 
 ## Live Demo
 
+https://events-hub-sooty.vercel.app/
+
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -29,9 +31,7 @@ To get a local copy up and running follow these simple example steps.
 - Create .env.local file and replicate the .env example
 - Run `npm start` to start the development server.
 
-## Online Link
 
-https://events-hub-sooty.vercel.app/
 
 ## Authors
 
