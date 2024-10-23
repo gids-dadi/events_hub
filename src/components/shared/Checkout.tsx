@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 // import { loadStripe } from "@stripe/stripe-js";
 import { PaystackButton } from "react-paystack";
-
 import { Button } from "../ui/button";
 // import { checkoutOrder } from "@/lib/actions/order.actions";
 import { IEvent } from "@/types";
@@ -54,7 +53,6 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   // };
 
   return (
-    // action={onCheckout}  method="post"
     <div className="bg-primary-50">
       <PaystackButton
         {...componentProps}

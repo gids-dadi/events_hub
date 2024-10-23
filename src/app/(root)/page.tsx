@@ -37,7 +37,7 @@ export default function Home({ searchParams }: SearchParamProps) {
       getAllEvents({ query: searchText, category, page, limit: 6 }), // Pass the correct values
   });
 
-  console.log(allEventsQuery?.data, "from home page");
+  // console.log(allEventsQuery?.data, "from home page");
 
   return (
     <div>

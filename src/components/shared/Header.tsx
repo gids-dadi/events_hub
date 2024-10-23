@@ -8,10 +8,9 @@ import { getUserProfile } from "@/api/user";
 import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
-  // Fetching the current user
   const { data: user } = useQuery({
     queryKey: ["profile"],
-    queryFn: getUserProfile, // getUserProfile is a function that fetches the user profile
+    queryFn: getUserProfile,
   });
 
   return (
@@ -20,10 +19,11 @@ const Header = () => {
         <Link href="/" className="w-36">
           <Image
             src="/assets/images/logo.svg"
-            width={128}
-            height={38}
+            width={50}
+            height={50}
             alt="Event hub logo"
           />
+          <span className="text-bold text-sm text-[#347bf3]">Event hub</span>
         </Link>
 
         <nav className="md:flex-between hidden w-full max-w-xs">
@@ -34,7 +34,7 @@ const Header = () => {
           <MobileNav />
 
           {!user && (
-            <Button asChild className="rounded-full bg-[#347bf3]" size="lg">
+            <Button asChild className="rounded-2xl bg-[#347bf3] p-4 " size="lg">
               <Link href="/login">Login</Link>
             </Button>
           )}

@@ -22,8 +22,8 @@ export default function CheckoutButton({ event }: { event: IEvent }) {
     <div className="flex items-center gap-3">
       {/* Check if the event is finished, we can not buy a finished event */}
       {hasEventFinished ? (
-        <p className="p-2 text-red-500 text-lg  ">
-          Sorry, tickets are no longer available.
+        <p className="p-2 text-red-500 text-lg bg-inherit  ">
+          Sorry! event is passed, tickets are no longer available.
         </p>
       ) : (
         <>

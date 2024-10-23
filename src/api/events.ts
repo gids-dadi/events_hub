@@ -78,3 +78,12 @@ export async function deleteEventById(eventId: string) {
   const res = await event_hub_axios_server.delete<any>(`/events/${eventId}`);
   return res.data;
 }
+
+
+export async function checkoutEvent(data: {
+  
+
+}) {
+  const res = await event_hub_axios_server.post<any>("/events", data);
+  return res.data;
+}

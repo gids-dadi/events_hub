@@ -58,7 +58,7 @@ export const event_hub_axios_server = axios.create({
 event_hub_axios_server.interceptors.request.use(
   (config) => {
     const token = getToken();
-    console.log(token, "tokennnnnnnn");
+    // console.log(token, "tokennnnnnnn");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
