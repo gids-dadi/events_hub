@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-// import { loadStripe } from "@stripe/stripe-js";
 import { PaystackButton } from "react-paystack";
-import { Button } from "../ui/button";
-// import { checkoutOrder } from "@/lib/actions/order.actions";
 import { IEvent } from "@/types";
+import { checkoutOrder } from "@/api/order";
 
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLISHABLE_KEY as string;
@@ -11,46 +8,41 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   const email = event.organizer.email;
   const currency = "NGN";
 
-  console.log({ email, amount, currency, publicKey });
-  const componentProps = {
+  const config = {
+    reference: new Date().getTime().toString(),
     email: email,
     amount: amount,
-    currency: currency,
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Event",
-          variable_name: "event",
-          value: event.event.title,
-        },
-        {
-          display_name: "User ID",
-          variable_name: "userId",
-          value: userId,
-        },
-      ],
-    },
     publicKey: publicKey,
-    text: "Pay with Paystack",
-    onSuccess: () => {
-      console.log("Payment successful");
-    },
-    onClose: () => {
-      console.log("Payment closed");
-    },
   };
 
-  // const onCheckout = async () => {
-  //   const order = {
-  //     eventTitle: event.event.title,
-  //     eventId: event._id,
-  //     price: event.event.price,
-  //     isFree: event.event.isFree,
-  //     buyerId: userId,
-  //   };
+  // you can call this function anything
+  const handlePaystackSuccessAction = async (reference: any) => {
+    console.log(reference);
+    // const onCheckout = async () => {
+    const order = {
+      eventTitle: event.event.title,
+      eventId: event._id,
+      price: event.event.price,
+      isFree: event.event.isFree,
+      buyerId: userId,
+    };
 
-  // await checkoutOrder(order);
-  // };
+    await checkoutOrder({ reference, order });
+    // };
+  };
+
+  // you can call this function anything
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+
+  const componentProps = {
+    ...config,
+    text: "Make Payment",
+    onSuccess: (reference:any) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
 
   return (
     <div className="bg-primary-50">

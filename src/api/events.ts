@@ -80,10 +80,3 @@ export async function deleteEventById(eventId: string) {
 }
 
 
-export async function checkoutEvent(data: {
-  
-
-}) {
-  const res = await event_hub_axios_server.post<any>("/events", data);
-  return res.data;
-}
