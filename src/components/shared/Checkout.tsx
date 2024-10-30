@@ -4,7 +4,8 @@ import { checkoutOrder } from "@/api/order";
 
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLISHABLE_KEY as string;
-  const amount = Number(event.event.price) * 100;
+  // const amount = Number(event.event.price) * 100;
+  const amount = event.event.isFree ? 0 : Number(event.event.price) * 100;
   const email = event.organizer.email;
   const currency = "NGN";
 
@@ -40,7 +41,7 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   const componentProps = {
     ...config,
     text: "Make Payment",
-    onSuccess: (reference:any) => handlePaystackSuccessAction(reference),
+    onSuccess: (reference: any) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
 

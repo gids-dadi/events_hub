@@ -170,3 +170,23 @@ export type SearchParamProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+export interface IOrder {
+  createdAt: Date;
+  stripeId: string;
+  totalAmount: string;
+  event: {
+    _id: string;
+    title: string;
+  };
+  buyer: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+}
+
+export interface ICategory {
+  _id: string;
+  name: string;
+}

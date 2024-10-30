@@ -1,12 +1,10 @@
 "use client";
 import { getAllEventsBySameOrganizer } from "@/api/events";
+import { getOrdersByUser } from "@/api/order";
 import { getUserProfile } from "@/api/user";
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
-// import { getEventsByUser } from "@/lib/actions/event.actions";
-// import { getOrdersByUser } from "@/lib/actions/order.actions";
-// import { IOrder } from "@/lib/database/models/order.model";
-import { SearchParamProps } from "@/types";
+import { IOrder, SearchParamProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 // import { auth } from "@clerk/nextjs";
 import Link from "next/link";
@@ -17,20 +15,18 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
     queryKey: ["profile"],
     queryFn: getUserProfile,
   });
-
   const userId = profile?.data?._id as string;
 
   const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
 
-  // const orders = await getOrdersByUser({ userId, page: ordersPage });
+  const orderedEventsQuery = useQuery({
+    queryKey: ["ordersByUser", userId, ordersPage],
+    queryFn: () => getOrdersByUser({ userId, page: ordersPage }),
+  });
 
-  // const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
-  // const organizedEvents = await getAllEventsBySameOrganizer({
-  //   userId,
-  //   page: eventsPage,
-  //   limit: 5,
-  // });
+  const orderedEvents =
+    orderedEventsQuery?.data?.data?.map((order: IOrder) => order.event) || [];
 
   const organizedEvents = useQuery({
     queryKey: ["eventsBySameUser", userId, eventsPage],
@@ -54,7 +50,7 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
         </div>
       </section>
 
-      {/* <section className="wrapper my-8">
+      <section className="wrapper my-8">
         <Collection
           data={orderedEvents}
           emptyTitle="No event tickets purchased yet"
@@ -63,9 +59,9 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"
-          totalPages={orders?.totalPages}
+          totalPages={orderedEventsQuery?.data?.totalPages}
         />
-      </section> */}
+      </section>
 
       {/* Events Organized */}
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">

@@ -1,6 +1,8 @@
 "use client";
 import { getAllEvents } from "@/api/events";
+import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
+import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
 import { SearchParamProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -11,9 +13,9 @@ import Link from "next/link";
 // import Search from "@/components/shared/Search";
 
 export default function Home({ searchParams }: SearchParamProps) {
-  const page = Number(searchParams.page) || 1;
-  const searchText = (searchParams.query as string) || "";
-  const category = (searchParams.category as string) || "";
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
 
   // const page = Number(searchParams.get("page")) || 1;
   // const searchText = searchParams.get("query") || "";
@@ -76,8 +78,8 @@ export default function Home({ searchParams }: SearchParamProps) {
         </h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          {/* <Search />
-          <CategoryFilter /> */}
+          <Search />
+          <CategoryFilter /> 
         </div>
 
         <Collection
