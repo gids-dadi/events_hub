@@ -1,15 +1,24 @@
 "use client"
-import Search from
-// import { getOrdersByEvent } from "@/lib/actions/order.actions";
+import { getOrdersByEvent } from "@/api/order";
+import Search from "@/components/shared/Search";
 import { formatDateTime, formatPrice } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 // import { IOrderItem } from "@/lib/database/models/order.model";
 
 const Orders = async ({ searchParams }: SearchParamProps) => {
   const eventId = (searchParams?.eventId as string) || "";
   const searchText = (searchParams?.query as string) || "";
 
-  const orders = await  ({ eventId, searchString: searchText });
+  // const orders = await  ({ eventId, searchString: searchText });
+
+
+  const ordersQuery = useQuery({
+    queryKey: ["ordersByEvent", eventId],
+    queryFn: () => getOrdersByEvent({ eventId, searchString: searchText }),
+  })
+
+  const orders = ordersQuery?.data?.data || [];
 
   return (
     <>
@@ -76,8 +85,3 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
 
 export default Orders;
 
-// import React from "react";
-
-// export default function OrdersPage() {
-//   return <div>Orders page</div>;
-// }

@@ -31,6 +31,10 @@ export async function getOrdersByUser(params: {
   return res.data;
 }
 
-
-
-
+export async function getOrdersByEvent(params: {
+  eventId: string;
+  searchString: string;
+}) {
+  const res = await event_hub_axios_server.get<any>("/orders", { params });
+  return res.data;
+}
