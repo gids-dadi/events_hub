@@ -33,11 +33,17 @@ const Header = () => {
         <div className="flex w-32 justify-end gap-3">
           <MobileNav />
 
-          {!user && (
-            <Button asChild className="rounded-2xl bg-[#347bf3] p-4 " size="lg">
-              <Link href="/login">Login</Link>
-            </Button>
-          )}
+          <div className="hidden md:block">
+            {!user && (
+              <Button
+                asChild
+                className="rounded-2xl bg-[#347bf3] p-4 "
+                size="lg"
+              >
+                <Link href="/login">Login</Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </header>

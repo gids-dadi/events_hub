@@ -11,6 +11,10 @@ export const headerLinks = [
     label: "My Profile",
     route: "/profile",
   },
+  // {
+  //   label: "Login",
+  //   route: "/login",
+  // },
 ];
 
 export const eventDefaultValues = {
