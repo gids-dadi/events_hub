@@ -21,7 +21,6 @@ export async function getUserProfile() {
 export async function registerUser(data: {
   fullName: string;
   email: string;
-  photo: string;
   password: string;
   terms: boolean;
 }) {

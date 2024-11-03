@@ -15,15 +15,18 @@ const Header = () => {
 
   return (
     <header className="w-full border-b">
-      <div className="wrapper flex items-center justify-between">
-        <Link href="/" className="w-36">
+      <div className="wrapper flex items-center justify-between ">
+        <Link href="/" className=" flex  flex-col justify-center items-center ">
           <Image
             src="/assets/images/logo.svg"
-            width={50}
-            height={50}
+            width={80}
+            height={80}
             alt="Event hub logo"
           />
-          <span className="text-bold text-sm text-[#347bf3]">Event hub</span>
+
+          <span className="font-bold text-2xl self-baseline text-[#5b5f718e] ">
+            Event hub
+          </span>
         </Link>
 
         <nav className="md:flex-between hidden w-full max-w-xs">
@@ -33,17 +36,11 @@ const Header = () => {
         <div className="flex w-32 justify-end gap-3">
           <MobileNav />
 
-          <div className="hidden md:block">
-            {!user && (
-              <Button
-                asChild
-                className="rounded-2xl bg-[#347bf3] p-4 "
-                size="lg"
-              >
-                <Link href="/login">Login</Link>
-              </Button>
-            )}
-          </div>
+          {!user && (
+            <Button asChild className="rounded-2xl bg-[#347bf3] p-4 " size="lg">
+              <Link href="/login">Login</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react";
@@ -21,39 +21,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { registerUser } from "@/api/user";
 
-// import { FullPageSpinner } from "../spinner/spinners";
-// import { Checkbox } from "../ui/checkbox";
-
 export default function RegistrationForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  // const { data: settings, isPending } = useQuery({
-  //   queryKey: ["settings"],
-  //   queryFn: getSettings,
-  // });
-
-  // const passwordPolicy = settings?.data.passwordPolicy!;
-
-  // function validatePassword(value: string) {
-  //   return (
-  //     (!passwordPolicy.length || value.length >= length) &&
-  //     (!passwordPolicy.mustHaveUpper || /[A-Z]/.test(value)) &&
-  //     (!passwordPolicy.mustHaveLower || /[a-z]/.test(value)) &&
-  //     (!passwordPolicy.mustHaveNumber || /[0-9]/.test(value)) &&
-  //     (!passwordPolicy.mustHaveSpecial || /[!@#$%^&*(),.?":{}|<>]/.test(value))
-  //   );
-  // }
 
   const registrationFormSchema = z.object({
     fullName: z.string().min(1, { message: "Full Name is required" }),
     email: z.string().email(),
-    photo: z.string().default("https://placehold.co/100x100"),
     password: z.string().min(1, {
       message: "Password field  cannot be empty",
     }),
-    // password: z.string().refine(validatePassword, {
-    //   message: `Password must be at least ${passwordPolicy?.length} characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character`,
-    // }),
     terms: z
       .boolean({
         required_error: "You must agree to the terms and conditions",
@@ -66,7 +43,6 @@ export default function RegistrationForm() {
     defaultValues: {
       fullName: "",
       email: "",
-      photo: "https://placehold.co/100x100",
       password: "",
       terms: false,
     },
@@ -145,24 +121,6 @@ export default function RegistrationForm() {
                     typeof="password"
                     placeholder="Enter your Password"
                     type={showPassword ? "text" : "password"}
-                    {...field}
-                    className="h-12 bg-[#f0eff0]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Photo */}
-          <FormField
-            control={form.control}
-            name="photo"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your Email Address"
                     {...field}
                     className="h-12 bg-[#f0eff0]"
                   />

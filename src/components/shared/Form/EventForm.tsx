@@ -79,14 +79,15 @@ export default function CreateEventForm({
   const updateEventMutation = useMutation({
     mutationFn: updateEvent,
     onSuccess: (data) => {
-      toast.success(data.message);
+      toast.success(data);
       router.push(`/events/${data.data._id}`);
     },
     onError: (error: any) => {
-      toast.error(
-        error?.response?.data?.message ||
-          "Network delay detected. Please try again."
-      );
+      // toast.error(
+      //   error?.response?.data?.message ||
+      //     "Network delay detected. Please try again."
+      // );
+      console.log(error);
     },
   });
 
