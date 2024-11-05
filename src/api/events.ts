@@ -56,12 +56,19 @@ export async function getAllEvents(params: {
   return res.data;
 }
 
-export async function getAllEventsBySameOrganizer(params: {
-  userId: string;
+export async function getAllEventsBySameOrganizer({
+  organizerId,
+  page,
+  limit,
+}: {
+  organizerId: string;
   page: number;
   limit: number;
 }) {
-  const res = await event_hub_axios_server.get<any>("/events", { params });
+  const res = await event_hub_axios_server.get<any>(
+    `/events/organizer/${organizerId}`,
+    { params: { page, limit } }
+  );
   return res.data;
 }
 
@@ -78,5 +85,3 @@ export async function deleteEventById(eventId: string) {
   const res = await event_hub_axios_server.delete<any>(`/events/${eventId}`);
   return res.data;
 }
-
-

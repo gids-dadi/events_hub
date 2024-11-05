@@ -18,8 +18,6 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
 
   // you can call this function anything
   const handlePaystackSuccessAction = async (reference: any) => {
-    console.log(reference);
-    // const onCheckout = async () => {
     const order = {
       eventTitle: event.event.title,
       eventId: event._id,
@@ -29,7 +27,6 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
     };
 
     await checkoutOrder({ reference, order });
-    // };
   };
 
   // you can call this function anything

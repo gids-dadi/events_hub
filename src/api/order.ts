@@ -27,7 +27,9 @@ export async function getOrdersByUser(params: {
   userId: string;
   page: number;
 }) {
-  const res = await event_hub_axios_server.get<any>("/orders", { params });
+  const res = await event_hub_axios_server.get<any>(`/orders/user-orders`, {
+    params,
+  });
   return res.data;
 }
 

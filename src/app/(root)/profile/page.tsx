@@ -6,7 +6,6 @@ import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
 import { IOrder, SearchParamProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-// import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 import React, { use } from "react";
 
@@ -23,20 +22,25 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
   const orderedEventsQuery = useQuery({
     queryKey: ["ordersByUser", userId, ordersPage],
     queryFn: () => getOrdersByUser({ userId, page: ordersPage }),
+    enabled: Boolean(userId),
   });
 
-  const orderedEvents =
-    orderedEventsQuery?.data?.data?.map((order: IOrder) => order.event) || [];
+  const orderedEvents = orderedEventsQuery?.data?.data;
 
-  const organizedEvents = useQuery({
+  // console.log(orderedEvents, "ordered events from the profile page");
+
+  const organizedEventsQuery = useQuery({
     queryKey: ["eventsBySameUser", userId, eventsPage],
     queryFn: () =>
       getAllEventsBySameOrganizer({
-        userId,
+        organizerId: userId,
         page: eventsPage,
         limit: 5,
       }),
+    enabled: !!userId, // Only run if userId is defined
   });
+
+  const organizedEvents = organizedEventsQuery?.data?.data || [];
 
   return (
     <>
@@ -51,7 +55,7 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="wrapper my-8">
-        <Collection
+        {/* <Collection
           data={orderedEvents}
           emptyTitle="No event tickets purchased yet"
           emptyStateSubtext="No worries - plenty of exciting events to explore!"
@@ -59,8 +63,48 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"
-          totalPages={orderedEventsQuery?.data?.totalPages}
-        />
+          totalPages={orderedEvents?.totalPages}
+        /> */}
+        {orderedEvents?.map((order: any) => (
+          <div key={order._id} className="order-card">
+            <h2>Order Reference: {order.ref}</h2>
+            <p>Amount: ${order.amount}</p>
+            <p>Status: {order.status}</p>
+
+            <div className="event-details">
+              <h3>Event: {order.event.event.title}</h3>
+              <p>Description: {order.event.event.description}</p>
+              <p>Location: {order.event.event.location}</p>
+              <img
+                src={order.event.event.imageUrl}
+                alt={order.event.event.title}
+                width="200"
+              />
+              <p>
+                Start Date:{" "}
+                {new Date(order.event.event.startDateTime).toLocaleString()}
+              </p>
+              <p>
+                End Date:{" "}
+                {new Date(order.event.event.endDateTime).toLocaleString()}
+              </p>
+              <p>Price: ${order.event.event.price}</p>
+              <p>Category ID: {order.event.event.category}</p>
+              <a
+                href={order.event.event.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Event Link
+              </a>
+            </div>
+
+            <p>Buyer ID: {order.buyer}</p>
+            <p>
+              Order Created At: {new Date(order.createdAt).toLocaleString()}
+            </p>
+          </div>
+        ))}
       </section>
 
       {/* Events Organized */}
@@ -75,14 +119,14 @@ const ProfilePage = ({ searchParams }: SearchParamProps) => {
 
       <section className="wrapper my-8">
         <Collection
-          data={organizedEvents?.data}
+          data={organizedEvents}
           emptyTitle="No events have been created yet"
           emptyStateSubtext="Go create some now"
           collectionType="Events_Organized"
           limit={3}
           page={eventsPage}
           urlParamName="eventsPage"
-          totalPages={organizedEvents.data?.totalPages}
+          totalPages={organizedEvents?.data?.totalPages}
         />
       </section>
     </>
